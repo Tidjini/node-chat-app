@@ -15,12 +15,29 @@ const io = socketIO(server);
 io.on("connection", socket => {
   console.log("new user connected");
 
+  socket.emit("newMessage", {
+    from: "Admin",
+    text: "Wellcome to the chat app",
+    createdAt: new Date().getTime()
+  });
+  socket.broadcast.emit("newMessage", {
+    from: "Admin",
+    text: "New user joind the app",
+    createdAt: new Date().getTime()
+  });
   socket.on("createMessage", email => {
     console.log("create message...", email);
+
     //to emit to evry one
-    io.emit("newMessage", {
+    // io.emit("newMessage", {
+    //   from: email.from,
+    //   text: email.text,
+    //   createdAt: new Date().getTime()
+    // });
+    // NOTE: broadcast message to all socket except this socket
+    socket.broadcast.emit("newMessage", {
       from: email.from,
-      text: email.text,
+      text: email.message,
       createdAt: new Date().getTime()
     });
   });

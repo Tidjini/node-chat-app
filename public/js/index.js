@@ -2,10 +2,10 @@
 var socket = io();
 socket.on("connect", function() {
   console.log("connected to server");
-  socket.emit("createMessage", {
-    text: "this is new email created by the client",
-    from: "you@yours.com"
-  });
+  // socket.emit("createMessage", {
+  //   text: "this is new email created by the client",
+  //   from: "you@yours.com"
+  // });
 });
 socket.on("disconnect", function() {
   console.log("disconnect to server");
