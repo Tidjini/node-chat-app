@@ -17,12 +17,17 @@ io.on("connection", socket => {
 
   socket.on("createMessage", email => {
     console.log("create message...", email);
+    //to emit to evry one
+    io.emit("newMessage", {
+      from: email.from,
+      text: email.text,
+      createdAt: new Date().getTime()
+    });
   });
-  socket.emit("newMessage", {
-    text: "this is an email",
-    from: "you@yours.com",
-    createdAt: new Date()
-  });
+  // socket.emit("newMessage", {
+  //   text: "this is an email",
+  //   from: "you@yours.com"
+  // });
 
   socket.on("disconnect", () => {
     console.log("closing...");
